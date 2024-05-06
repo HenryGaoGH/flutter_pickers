@@ -571,6 +571,7 @@ class _PickerState extends State<_PickerContentView> {
       //       FixedExtentScrollController(initialItem: index);
       // });
       _setHour();
+      _setMinute();
     }
   }
 
@@ -588,7 +589,12 @@ class _PickerState extends State<_PickerContentView> {
       if (intNotEmpty(minDate.minute) && _selectData.hour == minDate.hour) {
         beginMinute = minDate.minute!;
       }
-      if (intNotEmpty(maxDate.minute) && _selectData.hour == maxDate.hour) {
+      if (intNotEmpty(maxDate.minute) &&
+        _selectData.year == maxDate.year &&
+        _selectData.month == maxDate.month &&
+        _selectData.day == maxDate.day &&
+        _selectData.hour == maxDate.hour
+      ) {
         endMinute = maxDate.minute!;
       }
 
