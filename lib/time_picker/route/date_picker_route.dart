@@ -389,6 +389,7 @@ class _PickerState extends State<_PickerContentView> {
         _setMonth();
         break;
       case DateType.Day:
+        _setDay();
         break;
       case DateType.Hour:
         _setHour();
@@ -537,6 +538,39 @@ class _PickerState extends State<_PickerContentView> {
         pickerItemHeight =
             _pickerStyle.pickerItemHeight - Random().nextDouble() / 100000000;
       });
+    }
+  }
+
+  void _setDay() {
+    /// 小时的变化
+    if (_dateItemModel.hour) {
+      int index = 0;
+      int begin = 0;
+      int end = 23;
+      // 限制区域
+      if (intNotEmpty(minDate.hour)) {
+        begin = minDate.hour!;
+      }
+      if (intNotEmpty(maxDate.hour) &&
+        _selectData.year == maxDate.year &&
+        _selectData.month == maxDate.month &&
+        _selectData.day == maxDate.day
+      ) {
+        end = maxDate.hour!;
+      }
+
+      _dateTimeData.hour = TimeUtils.calcHour(begin: begin, end: end);
+
+      if (_initSelectData.hour != null) {
+        index = _dateTimeData.hour.indexOf(_initSelectData.hour);
+        index = index < 0 ? 0 : index;
+      }
+      // setState(() {
+      //   _selectData.hour = _dateTimeData.hour[index];
+      //   scrollCtrl[DateType.Hour] =
+      //       FixedExtentScrollController(initialItem: index);
+      // });
+      _setHour();
     }
   }
 
